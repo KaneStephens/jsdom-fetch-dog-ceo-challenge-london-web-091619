@@ -8,11 +8,8 @@ document.addEventListener("DOMContentLoaded", function() {
     })
     .then(function(jso) {
       for (const newIm of jso.message) {
-        // create new a tag to show the image
         let newTag = document.createElement("img");
-        // insert the current url into the tag src
         newTag.src = newIm;
-        // add to page
         document.querySelector("#dog-image-container").appendChild(newTag);
       }
     });
@@ -24,24 +21,9 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(function(jso) {
       for (const key in jso.message) {
         breeds.push(key);
-        // create new a tag to show the image
-        let newTag = document.createElement("li");
-        // insert the current url into the tag src
-        newTag.innerText = key;
-        // add to page
-        document.querySelector("#dog-breeds").appendChild(newTag);
-        //   add event listener to change colour to pink
-        newTag.addEventListener("click", function(e) {
-          e.target.style.color = "pink";
-        });
+        listDogs(key);
       }
     });
-
-  // add an event listener for each child of "#breed-dropdown" use 'e'
-  // set search value as value of option clicked (e.target)
-  // create upArray to return values at end
-  // iterate through all breeds and push to upArray if breed[0] === search value
-  // update "#dog-breeds" ul with new upArray (each as li)
 
   const optionArray = document.querySelector("select");
 
@@ -55,12 +37,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     document.querySelector("#dog-breeds").innerHTML = "";
     for (const breed of finalArray) {
-      let newTag = document.createElement("li");
-      newTag.innerText = breed;
-      document.querySelector("#dog-breeds").appendChild(newTag);
-      newTag.addEventListener("click", function(e) {
-        e.target.style.color = "pink";
-      });
+      listDogs(breed);
     }
   });
+
+  function listDogs(parameter) {
+    let newTag = document.createElement("li");
+    newTag.innerText = parameter;
+    document.querySelector("#dog-breeds").appendChild(newTag);
+    newTag.addEventListener("click", function(e) {
+      e.target.style.color = "pink";
+    });
+  }
 });
